@@ -3,6 +3,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+import requests
 
 # Resolve model paths relative to this file for robustness
 base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -13,8 +14,10 @@ le_path = os.path.join(base_dir, "models", "label_encoder.pkl")
 if not os.path.exists(model_path):
     st.error(f"Model file not found: {model_path}")
     st.stop()
-with open(model_path, "rb") as f:
-    model = pickle.load(f)
+    url = "https://your.storage/location/malnutrition_model.pkl"
+    r = requests.get(url)
+    open(model_path, "wb").write(r.content)
+model = pickle.load(open(model_path, "rb"))
 
 # Load encoder if available, else try to construct from model.classes_
 encoder = None
