@@ -100,16 +100,7 @@ cm = confusion_matrix(
 
 print("\nConfusion Matrix:")
 print(cm)
-model.fit(X_train, y_train)
-import pickle
 
-pickle.dump(
-    model,
-    open("models/malnutrition_model.pkl", "wb")
-)
-
-
-print("Model Saved Successfully!")
 import pickle
 
 pickle.dump(
